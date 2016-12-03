@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animal GIFs</title>
+	<!-- linking CSS reset file -->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<!-- linking CSS file -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<!-- linking bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+	<!-- jumbotron -->
+	<div class="container">
+		<br>
+ 		<div class="jumbotron">
+    		<h1>Animal GIFs</h1>
+    		<!-- instructions  -->
+    			<br>
+    			<p>Welcome to Animal GIFs!</p>
+    			<p>This page will give you the ability to generate GIFs of any animal you desire.</p>
+    			<p>Simply input the name of an animal and hit that submit button.</p>
+    			<p>Don't worry, we will save your previous entries so you can go back to them at your own convenience.</p>
+    			<br>
+  			<div class="row">
+  				<div class="col-lg-2"></div>
+  				<div class="col-lg-8">
+    				<div class="input-group">
+      					<input type="text" id="animal-input" class="form-control" placeholder="Search for an Animal">
+      						<span class="input-group-btn">
+        						<button id="addAnimal" class="btn btn-default" type="button">Submit!</button>
+      						</span>
+    				</div><!-- /input-group -->
+  				</div><!-- /.col-lg-8 -->
+				<div class="col-lg-2"></div>
+			</div><!-- /.row -->
+  		</div>
+	</div>
+	<!-- end jumbotron -->
+	
+	<!-- main content -->
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<!-- animals will get dumped here -->
+		<div class="col-lg-8" align="center">
+			<div id="animalsView"></div>
+			<div id="animalImages"></div>
+		<!-- close animal dump -->
+		<div class="col-lg-2"></div>
+		</div>
+	</div>
+	<br>
+	<!-- end main content -->
+
+	<!-- modal -->
+	<div class="container">
+  		<!-- alert modal -->
+  		<div class="modal fade" id="alertModal" role="dialog">
+    		<div class="modal-dialog modal-sm" align="center">
+      			<div class="modal-content">
+       				 <div class="modal-header">
+          				<h4 class="modal-title">Error!</h4>
+        			</div>
+        			<div class="modal-body">
+          				<p>Please input an animal.</p>
+        			</div>
+        			<div class="modal-footer">
+          			<button type="button" class="btn btn-default" id="alertModal" data-dismiss="modal">Close</button>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	<!-- end alert modal -->
+
+	<!-- footer -->
+	<footer class="footer text-center">
+      <div class="container">
+        <p class="text-muted">&copy; Copyright 2016 Peter Hoang</p>
+      </div>
+    </footer>
+    <!-- linking jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- linking bootstrap JS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- linking JS file -->
+	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
+</body>
+</html>
