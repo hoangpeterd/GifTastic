@@ -37,9 +37,16 @@ $('#addAnimal').on('click', function(){
 		// our array then runs which handles the processing of our animal array
 		renderButtons();
 	}	
+	// We have this line so that users can hit "enter" instead of clicking on the button and it won't move to the next page
+	return false;
+});
+// end button click function
+
+//this function gets the images from the giphy API
+$('#animalsView').on('click keypress', '.animals', function(){
 
 	// here we assemble our giphy API URL
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC";
 
 	// perfoming an AJAX GET request for the queryURL
 	$.ajax({
@@ -58,16 +65,12 @@ $('#addAnimal').on('click', function(){
 
 		// setting the animalImage src attribute to imageURL
 		animalImage.attr("src", imageURL);
-		animalImage.attr("alt", "");
+		animalImage.attr("alt", animal);
 
 		// prepending the animalImage to the images div
 		$("#animalImages").prepend();animalImage
 	});
-
-	// We have this line so that users can hit "enter" instead of clicking on ht button and it won't move to the next page
-	return false;
 });
-// end button click function
 
 // This calls the renderButtons() function
 renderButtons();
