@@ -88,7 +88,7 @@ function renderFunction(animal){
 
 		// appending the animalImage to the images div
 		for (var i = 0; i < response.data.length; i++) {
-			var container = $("<div>").addClass("gifParent");
+			var container = $("<div>").addClass("gifParent col-sm-4");
 			
 			// creating and storing an img tag
 			var animalImage = $("<img>").addClass("img-rounded");
