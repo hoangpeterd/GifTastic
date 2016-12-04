@@ -1,6 +1,6 @@
 // initial array of animals
-var animals = ['rat', 'mouse', 'dog', 'cat'];
-
+var animals = ['rat', 'mouse', 'dog', 'cat', 'narwhal'];
+var colors = ["#009688", "#CCF2F6", "#3F51B5", "#673AB7", "#9C27B0"];
 // function for displaying animal data 
 function renderButtons(){ 
 
@@ -20,7 +20,6 @@ function renderButtons(){
 		$('#animalsView').prepend(a); // Added the button to the HTML
 	}
 }
-// end function for displaying animal data
 
 // this function handles events when the submit button is clicked
 $('#addAnimal').on('click', function(){
@@ -93,7 +92,7 @@ function renderFunction(animal){
 			
 			// creating and storing an img tag
 			var animalImage = $("<img>").addClass("img-rounded");
-			var rating = $("<p>").text("Rating: " + response.data[i].rating);
+			var rating = $("<p>").text("rating: " + response.data[i].rating);
 
 			configImg(response.data[i], animalImage);
 
