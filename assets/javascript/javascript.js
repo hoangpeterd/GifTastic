@@ -1,5 +1,5 @@
 // initial array of animals
-var animals = ['cat', 'dog', 'mouse', 'rat'];
+var animals = ['rat', 'mouse', 'dog', 'cat'];
 
 // function for displaying animal data 
 function renderButtons(){ 
@@ -22,8 +22,11 @@ function renderButtons(){
 }
 // end function for displaying animal data
 
-// this function handles events when the button is clicked
+// this function handles events when the submit button is clicked
 $('#addAnimal').on('click', function(){
+
+	// Deletes the animals prior to adding new animals (this is necessary otherwise you will have repeat buttons)
+	$('#images').empty();
 
 	// this line of code will grab the input from the textbox
 	var animal = $('#animal-input').val().trim();
@@ -36,17 +39,43 @@ $('#addAnimal').on('click', function(){
 		animals.push(animal);
 		// our array then runs which handles the processing of our animal array
 		renderButtons();
+		renderFunction(animal);
 	}	
 	// We have this line so that users can hit "enter" instead of clicking on the button and it won't move to the next page
 	return false;
 });
-// end button click function
+// end submit button click function
 
 //this function gets the images from the giphy API
 $('#animalsView').on('click keypress', '.animals', function(){
 
+	// Deletes the animals prior to adding new animals (this is necessary otherwise you will have repeat images)
+	$('#images').empty();
+	// this line of code will grab the input from the textbox
+	var animal = $(this).attr('data-name');
+
+	renderFunction(animal);
+});
+
+$(".gifParent").on("click", ".gif", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+
+      if (state === "still") {
+        $(this).attr("src", $(this).data("animate"));
+        $(this).attr("data-state", "animate");
+      }
+      else {
+        // If the clicked image's state is still, update it's src attribute to what it's data-animate value is.
+        // Then set the image's data-state to animate
+        $(this).attr("src", $(this).data("still"));
+        $(this).attr("data-state", "still");
+      }
+    });
+
+function renderFunction(animal){
 	// here we assemble our giphy API URL
-	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=dc6zaTOxFJmzC";
+	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&limit=10&api_key=dc6zaTOxFJmzC&";
 
 	// perfoming an AJAX GET request for the queryURL
 	$.ajax({
@@ -55,22 +84,37 @@ $('#animalsView').on('click keypress', '.animals', function(){
 	})
 
 	// after the data from the AJAX request comes back
-	.done(function(response){
+	.done(function(response) {
+		console.log(response);
 
-		//saving the image_original_url property
-		var imageURL = response.data.image_original_url;
+		// appending the animalImage to the images div
+		for (var i = 0; i < response.data.length; i++) {
+			var container = $("<div>").addClass("gifParent");
+			
+			// creating and storing an img tag
+			var animalImage = $("<img>").addClass("img-rounded");
+			var rating = $("<p>").text("Rating: " + response.data[i].rating);
 
-		// creating and storing an img tag
-		var animalImage = $("<img>");
+			configImg(response.data[i], animalImage);
 
-		// setting the animalImage src attribute to imageURL
-		animalImage.attr("src", imageURL);
-		animalImage.attr("alt", animal);
-
-		// prepending the animalImage to the images div
-		$("#animalImages").prepend();animalImage
+    		container.append(rating);
+    		container.append(animalImage);
+    		$("#images").append(container);
+		};
 	});
-});
+};
+
+function configImg(data, image, animal){
+	var imageURL = data.images.fixed_height.url;
+	var imageURLStill = data.images.fixed_height_still.url;
+	// setting the animalImage src attribute to imageURL
+	image.attr("src", imageURLStill);
+	image.attr("alt", animal);
+	image.addClass("gif");
+    image.attr("data-state", "still");
+    image.attr("data-still", imageURLStill);
+    image.attr("data-animate", imageURL);
+};
 
 // This calls the renderButtons() function
 renderButtons();
