@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Animal GIFs</title>
+	<title>animal.gifs</title>
 	<!-- linking CSS reset file -->
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<!-- linking CSS file -->
@@ -15,13 +15,14 @@
 		<br>
  		<div class="jumbotron">
     		<h1>animal.gifs</h1>
-    		<!-- instructions  -->
     		<br>
   			<div class="row">
   				<div class="col-lg-2"></div>
   				<div class="col-lg-8">
+    				<!-- input form -->
     				<div class="input-group">
       					<input type="text" id="animal-input" class="form-control" placeholder="search for an animal">
+      						<!-- submit button -->
       						<span class="input-group-btn">
         						<button id="addAnimal" class="btn btn-default" type="button">submit</button>
       						</span>
@@ -36,13 +37,15 @@
 	<!-- main content -->
 	<div class="row">
 		<div class="col-lg-1"></div>
-		<!-- animals will get dumped here -->
+		<!-- gifs will get dumped here -->
 		<div class="col-lg-10" align="center">
+			<!-- button column -->
 			<div id="animalsView"></div>
 			<hr style="width: 95%">
+			<!-- gifs column -->
 			<div class="gifParent" id="images"></div>
 		</div>
-		<!-- close animal dump -->
+		<!-- close gif dump -->
 		<div class="col-lg-1"></div>
 	</div>
 	<br>

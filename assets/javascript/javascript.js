@@ -1,6 +1,6 @@
 // initial array of animals
 var animals = ['rat', 'mouse', 'dog', 'cat', 'narwhal'];
-var colors = ["#009688", "#CCF2F6", "#3F51B5", "#673AB7", "#9C27B0"];
+
 // function for displaying animal data 
 function renderButtons(){ 
 
@@ -10,21 +10,20 @@ function renderButtons(){
 	// Loops through the array of animals
 	for (var i = 0; i < animals.length; i++){
 
-	// Then dynamicaly generates buttons for each movie in the array
-
-		// Note the jQUery syntax here... 
-		var a = $('<button>').attr('type', 'button').addClass('btn btn-default'); // This code $('<button>') is all jQuery needs to create the beginning and end tag. (<button></button>)
-		a.addClass('animals'); // Added a class 
-		a.attr('data-name', animals[i]); // Added a data-attribute
-		a.text(animals[i]); // Provided the initial button text
-		$('#animalsView').prepend(a); // Added the button to the HTML
+		// Then dynamicaly generates buttons for each animal in the array
+		var a = $('<button>').attr('type', 'button').addClass('btn btn-default'); //variable that creates the buttons
+		a.addClass('animals'); // added a class 
+		a.attr('data-name', animals[i]); // added a data-attribute
+		a.text(animals[i]); // provided the initial button text
+		$('#animalsView').prepend(a); // added the button to the HTML
 	}
-}
+};
+// end function for displaying animal data
 
 // this function handles events when the submit button is clicked
 $('#addAnimal').on('click', function(){
 
-	// Deletes the animals prior to adding new animals (this is necessary otherwise you will have repeat buttons)
+	// deletes the animals prior to adding new animals (this is necessary otherwise you will have repeat buttons)
 	$('#images').empty();
 
 	// this line of code will grab the input from the textbox
@@ -36,14 +35,20 @@ $('#addAnimal').on('click', function(){
 	} else {
 		// the animal from the textbox is then added to our array
 		animals.push(animal);
-		// our array then runs which handles the processing of our animal array
-		renderButtons();
-		renderFunction(animal);
+		renderButtons(); // this calls on the function that renders buttons based on what is inputed
+		renderFunction(animal); // this calls on the function that attaches the giphy API to each button
 	}	
-	// We have this line so that users can hit "enter" instead of clicking on the button and it won't move to the next page
 	return false;
 });
 // end submit button click function
+
+// function that triggers the submit button when users hit "enter"
+$("#animal-input").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#addAnimal").click();
+    }
+});
+// end function that triggers the submit button when pressing "enter"
 
 //this function gets the images from the giphy API
 $('#animalsView').on('click keypress', '.animals', function(){
@@ -55,7 +60,9 @@ $('#animalsView').on('click keypress', '.animals', function(){
 
 	renderFunction(animal);
 });
+// end animals view function
 
+// function that allows user to "pause" or "play" gifs when clicking on the gif itself
 $(".gifParent").on("click", ".gif", function() {
       // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       var state = $(this).attr("data-state");
@@ -71,7 +78,9 @@ $(".gifParent").on("click", ".gif", function() {
         $(this).attr("data-state", "still");
       }
     });
+// end function that allows user to "play" or "pause" the gifs
 
+// function that pulls the giphy API
 function renderFunction(animal){
 	// here we assemble our giphy API URL
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&limit=10&api_key=dc6zaTOxFJmzC&";
@@ -88,10 +97,10 @@ function renderFunction(animal){
 
 		// appending the animalImage to the images div
 		for (var i = 0; i < response.data.length; i++) {
-			var container = $("<div>").addClass("gifParent col-sm-4");
+			var container = $("<div>").addClass("gifParent col-sm-6");
 			
 			// creating and storing an img tag
-			var animalImage = $("<img>").addClass("img-rounded");
+			var animalImage = $("<img>").addClass("img-rounded img-responsive");
 			var rating = $("<p>").text("rating: " + response.data[i].rating);
 
 			configImg(response.data[i], animalImage);
@@ -102,18 +111,20 @@ function renderFunction(animal){
 		};
 	});
 };
+// end function that pulls the giphy API
 
+// function that sets the image attributes
 function configImg(data, image, animal){
 	var imageURL = data.images.fixed_height.url;
 	var imageURLStill = data.images.fixed_height_still.url;
-	// setting the animalImage src attribute to imageURL
+	image.addClass("gif");
 	image.attr("src", imageURLStill);
 	image.attr("alt", animal);
-	image.addClass("gif");
     image.attr("data-state", "still");
     image.attr("data-still", imageURLStill);
     image.attr("data-animate", imageURL);
 };
+// end function that sets the image attributes
 
 // This calls the renderButtons() function
 renderButtons();
